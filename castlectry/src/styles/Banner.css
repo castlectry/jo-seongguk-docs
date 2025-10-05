@@ -1,0 +1,258 @@
+@keyframes bannerLeftShow {
+    from {
+        opacity: 0;
+        transform: translateX(-300px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes bannerRightShow {
+    from {
+        opacity: 0;
+        transform: translateX(300px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounce-fade {
+    0% {
+        margin-bottom: 10px;
+    }
+    50% {
+        margin-bottom: 20px;
+    }
+    100% {
+        margin-bottom: 10px;
+    }
+}
+
+@keyframes circleAnimation {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+}
+
+@keyframes pillAnimationTop {
+    from {
+        opacity: 0;
+        transform: rotate(45deg) translate(-50%, -50%);
+    }
+    to {
+        opacity: 0.5;
+        transform: rotate(45deg) translate(0, 0);
+    }
+}
+
+@keyframes pillAnimationBottom {
+    from {
+        opacity: 0;
+        transform: rotate(45deg) translate(50%, 50%);
+    }
+    to {
+        opacity: 0.5;
+        transform: rotate(45deg) translate(0, 0);
+    }
+}
+
+/* ---------- Banner Layout ---------- */
+.section-banner {
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(270deg, #3b82f6, #8b5cf6, #46B4B4);
+    background-size: 600% 600%;
+    animation: gradientMove 15s ease infinite;
+}
+
+.banner-content {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 71.25rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+}
+
+.banner-title {
+    font-family: Times New Roman, serif;
+    font-weight: 400;
+    font-size: 4rem;
+    color: #fff;
+    padding: 0 2rem;
+    word-break: keep-all;
+    margin-bottom: -8%;
+}
+
+.banner-animation-left {
+    animation: bannerLeftShow 1.5s;
+    opacity: 1;
+    color: transparent;
+    -webkit-text-stroke: 0.7px white;
+}
+
+.banner-animation-right {
+    animation: bannerRightShow 1.5s;
+    opacity: 1;
+}
+
+.banner-more-button {
+    /* background: url("/castlectry/src/assets/images/banner/arrow-down.png") no-repeat center; */
+    background-size: 200%;
+    animation: bounce-fade 1.2s infinite;
+}
+
+
+/* ---------- Design Elements ---------- */
+.banner-design-wrapper {
+    position: relative;
+    height: 246px;
+    left: 35%;
+    bottom: 10%;
+    /*transform: translateX(-15%);*/
+}
+
+.circle {
+    width: 300px;
+    height: 300px;
+    opacity: 0.5;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    animation: circleAnimation;
+}
+
+.circle-1 {
+    bottom: -200px;
+    left: 248px;
+}
+.circle-2 {
+    width: 230px;
+    height: 230px;
+    bottom: -256px;
+    left: 100px;
+    background-color: transparent;
+    border: 5px solid white;
+}
+.circle-3 {
+    width: 290px;
+    height: 290px;
+    bottom: 200px;
+    left: -1271px;
+}
+.circle-4 {
+    width: 40px;
+    height: 40px;
+    bottom: 254px;
+    left: -627px;
+}
+.circle-5 {
+    width: 20px;
+    height: 20px;
+    bottom: 240px;
+    left: -586px;
+    background-color: transparent;
+    border: 3px solid white;
+}
+.circle-6 {
+    width: 120px;
+    height: 120px;
+    bottom: 372px;
+    left: -985px;
+}
+
+.pill {
+    opacity: 0.5;
+    background-color: white;
+    transform: rotate(45deg);
+    border-radius: 139px;
+    position: absolute;
+}
+
+.pill-1 {
+    width: 161px;
+    height: 592px;
+    bottom: -543px;
+    left: -1088px;
+    animation: pillAnimationBottom;
+}
+.pill-2 {
+    width: 110px;
+    height: 454px;
+    bottom: -314px;
+    left: -1018px;
+    animation: pillAnimationBottom;
+}
+.pill-3 {
+    width: 204px;
+    height: 454px;
+    bottom: 192px;
+    left: 273px;
+    animation: pillAnimationTop;
+}
+.pill-4 {
+    width: 122px;
+    height: 256px;
+    bottom: 114px;
+    left: 276px;
+    animation: pillAnimationTop;
+}
+.pill-5 {
+    width: 43px;
+    height: 83px;
+    bottom: -200px;
+    left: -298px;
+    animation: pillAnimationBottom;
+}
+.pill-6 {
+    width: 67px;
+    height: 125px;
+    bottom: -299px;
+    left: -298px;
+    animation: pillAnimationBottom;
+}
+
+@media (max-width: 767px) {
+    .banner-title {
+        font-size: 2.2rem;
+    }
+    .banner-more-button {
+        bottom: 25%;
+    }
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.section_banner {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(270deg, #3b82f6, #8b5cf6, #98FB98); /* 파랑-보라-민트 */
+    background-size: 600% 600%;
+    animation: gradientMove 15s ease infinite; /* 천천히 움직이는 그라데이션 */
+}
+
+
