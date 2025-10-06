@@ -1,0 +1,54 @@
+/* ------------------------------
+   Header Layout
+------------------------------ */
+.header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 64px; /* 헤더 높이 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 1000;
+    font-family: "Century Gothic", serif;
+
+    /* 기본은 투명 (배너 위일 때) */
+    background-color: transparent;
+    color: white;
+    transition:
+            background-color 0.3s ease,
+            color 0.3s ease,
+            box-shadow 0.3s ease;
+}
+
+/* 스크롤 내려왔을 때 (배너 영역 벗어남) */
+.header-container.scrolled {
+    background-color: white;
+    color: #555; /* 회색 글씨 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* 살짝 그림자 */
+}
+
+/* 로고나 메뉴 스타일 */
+.header-logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.header-nav {
+    display: flex;
+    gap: 24px;
+}
+
+.header-nav button {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+    opacity: 0.4;
+    transition: opacity 0.15s ease-in-out;
+}
+
+.header-nav button:hover {
+    opacity: 1;
+}

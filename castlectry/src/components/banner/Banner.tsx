@@ -1,9 +1,10 @@
-import {useEffect, useRef, useState} from 'react';
-import '../../styles/Banner.css';
+import {useEffect, useState} from 'react';
+import '../../styles/banner/Banner.css';
 import arrowDown from "../../assets/images/banner/arrow-down.png";
 
 interface BannerProps {
     checkWidth: boolean;
+    scrollNext: () => void;
 }
 
 interface DesignItem {
@@ -11,7 +12,7 @@ interface DesignItem {
     style: React.CSSProperties;
 }
 
-export default function Banner({ checkWidth }: BannerProps) {
+export default function Banner({ checkWidth, scrollNext }: BannerProps) {
 
     const [designItem, setDesignItem] = useState<{
         circle: DesignItem[];
@@ -21,8 +22,6 @@ export default function Banner({ checkWidth }: BannerProps) {
         pill: [],
     });
 
-    const isScrolling = useRef(false); //
-    const touchStartY = useRef(0);
 
     useEffect(() => {
         // 랜덤 duration 부여
@@ -38,67 +37,6 @@ export default function Banner({ checkWidth }: BannerProps) {
         });
     }, []);
 
-    // 다음 배너로 이동
-    const handleScrollNext = () => {
-        const target = document.querySelector('.section-myinfo');
-
-        if (target && !isScrolling.current) {
-            isScrolling.current = true;
-            window.scrollTo({
-                top: target.getBoundingClientRect().top + window.scrollY,
-                behavior: 'smooth',
-            });
-
-            // 1초 뒤 다시 스크롤 가능하게 (연속 스크롤 방지)
-            setTimeout(() => {
-                isScrolling.current = false;
-            }, 1000);
-        }
-
-    };
-
-    useEffect(() => {
-        const handleWheel = (e: WheelEvent) => {
-            if (isScrolling.current) return;
-            if (e.deltaY > 50) {
-                // 아래로 스크롤 → 다음 섹션
-                handleScrollNext();
-            }
-        };
-
-        const handleTouchStart = (e: TouchEvent) => {
-            touchStartY.current = e.touches[0].clientY;
-        };
-
-        const handleTouchEnd = (e: TouchEvent) => {
-            const touchEndY = e.changedTouches[0].clientY;
-            const diff = touchStartY.current - touchEndY;
-            if (diff > 50) {
-                // 아래로 스와이프 -> 다음 섹션
-                handleScrollNext();
-            }
-        };
-
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'ArrowDown' || e.key === 'Down') {
-                e.preventDefault();
-                handleScrollNext();
-            }
-        };
-
-        window.addEventListener('wheel', handleWheel, { passive: true });
-        window.addEventListener('touchstart', handleTouchStart, { passive: true });
-        window.addEventListener('touchend', handleTouchEnd, { passive: true });
-        window.addEventListener('keydown', handleKeyDown);
-
-        return () => {
-            window.removeEventListener('wheel', handleWheel);
-            window.removeEventListener('touchstart', handleTouchStart);
-            window.removeEventListener('touchend', handleTouchEnd);
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, []);
-
     return (
         <section
             className="section-banner relative overflow-hidden bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 w-[100%] max-w-[100vw] overflow-x-hidden min-h-screen">
@@ -112,7 +50,7 @@ export default function Banner({ checkWidth }: BannerProps) {
 
                 <button
                     className="banner-more-button absolute bottom-[2%] left-1/2 w-6 h-6 cursor-pointer z-[50]"
-                    onClick={handleScrollNext}
+                    onClick={scrollNext}
                     style={{
                         background: `url(${arrowDown}) no-repeat center`,
                         backgroundSize: "contain",
