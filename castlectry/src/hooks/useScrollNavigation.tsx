@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { animate } from "motion/react";
 
 export function useGlobalScrollNavigation(selectors: string[], lockMs = 300) {  // lockMS (0.3초) (연속 스크롤 방지 변수)
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const currentIndexRef = useRef(0);
     const isLocked = useRef(false); // 스크롤 잠금 상태 저장
     const touchStartY = useRef(0);
     const sectionsRef = useRef<HTMLElement[]>([]);
@@ -38,12 +38,12 @@ export function useGlobalScrollNavigation(selectors: string[], lockMs = 300) {  
 
         setTimeout(() => {
             isLocked.current = false;   // lockMs 초 후 이동 가능 설정
-            setCurrentIndex(idx);
+            currentIndexRef.current = idx;
         }, lockMs);
     };
 
-    const scrollNext = () => scrollToIndex(currentIndex + 1);
-    const scrollPrev = () => scrollToIndex(currentIndex - 1);
+    const scrollNext = () => scrollToIndex(currentIndexRef.current + 1);
+    const scrollPrev = () => scrollToIndex(currentIndexRef.current - 1);
 
     useEffect(() => {
         sectionsRef.current = computeSections();
@@ -56,7 +56,7 @@ export function useGlobalScrollNavigation(selectors: string[], lockMs = 300) {  
                 const top = sectionsRef.current[i].getBoundingClientRect().top + window.scrollY;
                 if (midscreen >= top) idx = i; else break;
             }
-            setCurrentIndex(idx);
+            currentIndexRef.current = idx;
         };
 
         const onWheel = (e: WheelEvent) => {
@@ -100,5 +100,5 @@ export function useGlobalScrollNavigation(selectors: string[], lockMs = 300) {  
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectors.join('|'), lockMs]);
 
-    return { currentIndex, scrollNext, scrollPrev, scrollToIndex };
+    return { scrollNext, scrollPrev, scrollToIndex };
 }
