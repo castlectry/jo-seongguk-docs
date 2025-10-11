@@ -36,6 +36,7 @@
     font-weight: bold;
 }
 
+/* PC navigation */
 .header-nav {
     display: flex;
     gap: 24px;
@@ -45,10 +46,47 @@
     text-decoration: none;
     color: inherit;
     font-weight: bold;
-    opacity: 0.4;
+    opacity: 0.7;
     transition: opacity 0.15s ease-in-out;
 }
 
 .header-nav button:hover {
     opacity: 1;
 }
+
+.menu-icon {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        background-color: rgba(255, 255, 255, 0.95);
+        color: #333;
+        /*padding: 0 1.2rem;*/
+    }
+
+    /* 메뉴 버튼 숨기기 */
+    .header-nav {
+        display: none;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    /* 메뉴 아이콘 버튼 */
+    .menu-icon {
+        display: block;
+        width: 28px;
+        height: 28px;
+        background-color: transparent;
+        border: none;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        cursor: pointer;
+    }
+
+
+}
+
