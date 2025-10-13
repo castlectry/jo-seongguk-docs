@@ -5,7 +5,14 @@ export function useGlobalScrollNavigation(selectors: string[], lockMs = 300) {  
     const currentIndexRef = useRef(0);
     const isLocked = useRef(false); // 스크롤 잠금 상태 저장
     const isAnimating = useRef(false);
+
+    /*
+    // 터치 관련
     const touchStartY = useRef(0);
+    const touchDeltaY = useRef(0);
+    const touchInProgress = useRef(false);
+    */
+
     const sectionsRef = useRef<HTMLElement[]>([]);
 
     /* 현재 section DOM 수집 함수 */
@@ -21,6 +28,7 @@ export function useGlobalScrollNavigation(selectors: string[], lockMs = 300) {  
     const smoothScrollTo = (targetY: number, duration = 1.7) => {
         const startY = window.scrollY;
         isAnimating.current = true;
+        document.body.style.overflow = "hidden"; // 모바일 중복 스크롤 방지
 
         animate(startY, targetY, {
             duration,
@@ -114,29 +122,68 @@ export function useGlobalScrollNavigation(selectors: string[], lockMs = 300) {  
             else if (e.key === 'ArrowUp' || e.key === 'Up') { e.preventDefault(); scrollPrev(); }
         };
 
-        const onTouchStart = (e: TouchEvent) => { touchStartY.current = e.touches[0].clientY; };
-        const onTouchEnd = (e: TouchEvent) => {
-            if (isLocked.current) return;
-            const diff = touchStartY.current - e.changedTouches[0].clientY;
-            if (diff > 50) scrollNext();
-            else if (diff < -50) scrollPrev();
+        /* ----------- 모바일 터치 이벤트 ----------- */
+        /*
+        const onTouchStart = (e: TouchEvent) => {
+            touchStartY.current = e.touches[0].clientY;
+            touchInProgress.current = true;
+            touchDeltaY.current = 0;
         };
+
+        const onTouchMove = (e: TouchEvent) => {
+            if (!touchInProgress.current) return;
+            const currentY = e.touches[0].clientY;
+            touchDeltaY.current = touchStartY.current - currentY;
+        };
+
+        const onTouchEnd = () => {
+            if (!touchInProgress.current || isLocked.current) return;
+            touchInProgress.current = false;
+
+            const diff = touchDeltaY.current;
+            const THRESHOLD = 40; // 민감도 (손가락 이동 거리)
+            if (Math.abs(diff) < THRESHOLD) return;
+
+            const currentSection = sectionsRef.current[currentIndexRef.current];
+            if (!currentSection) return;
+
+            const top = currentSection.offsetTop;
+            const bottom = top + currentSection.offsetHeight;
+            const scrollY = window.scrollY;
+
+            const margin = window.innerHeight * 0.15;
+            const atTop = scrollY <= top + margin;
+            const atBottom = scrollY + window.innerHeight >= bottom - margin;
+
+            if (diff > 0 && atBottom) scrollNext(); // 아래로 드래그 (다음 섹션)
+            else if(diff < 0 && atTop) scrollPrev(); // 위로 드래그 (이전 섹션)
+        };
+        */
+        /* ----------- 모바일 터치 이벤트 ----------- */
 
         const onResize = () => { sectionsRef.current = computeSections(); updateIndex(); };
 
-        updateIndex();
+        /* 이벤트 등록 */
         window.addEventListener('wheel', onWheel, { passive: false });
         window.addEventListener('keydown', onKey);
+        /*
         window.addEventListener('touchstart', onTouchStart, { passive: true });
+        window.addEventListener("touchmove", onTouchMove, { passive: true });
         window.addEventListener('touchend', onTouchEnd, { passive: true });
+        */
         window.addEventListener('resize', onResize);
         window.addEventListener('scroll', updateIndex, { passive: true });
+        updateIndex();
+
 
         return () => {
             window.removeEventListener('wheel', onWheel);
             window.removeEventListener('keydown', onKey);
+            /*
             window.removeEventListener('touchstart', onTouchStart);
+            window.removeEventListener("touchmove", onTouchMove);
             window.removeEventListener('touchend', onTouchEnd);
+            */
             window.removeEventListener('resize', onResize);
             window.removeEventListener('scroll', updateIndex);
         };
