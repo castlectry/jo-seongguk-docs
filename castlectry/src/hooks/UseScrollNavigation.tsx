@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { animate } from "motion/react";
 
-export function useGlobalScrollNavigation(selectors: string[], lockMs = 300) {  // lockMS (0.3초) (연속 스크롤 방지 변수)
+export function useGlobalScrollNavigation(selectors: string[], lockMs = 600) {  // lockMS (0.6초) (연속 스크롤 방지 변수)
     const currentIndexRef = useRef(0);
     const isLocked = useRef(false); // 스크롤 잠금 상태 저장
     const isAnimating = useRef(false);
@@ -73,8 +73,9 @@ export function useGlobalScrollNavigation(selectors: string[], lockMs = 300) {  
 
         // 경계 기반
         const updateIndex = () => {
-            // if (isAnimating.current) return;    // 스크롤 중에는 index 업데이트 금지
-            window.addEventListener('scroll', updateIndex, { passive: false });
+            if (isAnimating.current) return;    // 스크롤 중에는 index 업데이트 금지
+
+            // window.addEventListener('scroll', updateIndex, { passive: false });  /* 외부에서 이미 호출 중 */
 
             const scrollTop = window.scrollY;
             const windowHeight = window.innerHeight;
