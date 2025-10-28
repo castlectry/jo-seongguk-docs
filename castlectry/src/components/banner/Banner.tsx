@@ -43,9 +43,9 @@ export default function Banner({ checkWidth, scrollNext }: BannerProps) {
             <div
                 className="banner-content w-full mx-auto flex flex-col items-center justify-center text-center h-screen">
                 <div
-                    className="banner-title text-[4rem] mb-[8%] px-8 font-[AppleSDGothicNeoEB00] font-normal break-keep">
+                    className="banner-title text-[4rem] mb-[8%] px-8 font-normal break-keep">
                     <div className="banner-animation-left">WELCOME!</div>
-                    <div className="banner-animation-right">SEONGGUK'S PAGE</div>
+                    <div className="banner-animation-right">Seong Guk's PAGE</div>
                 </div>
 
                 <button
