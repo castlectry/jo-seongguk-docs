@@ -35,26 +35,23 @@ export default function AboutMe() {
                     <span className="text-white">
                         안녕하세요.
                         <br/> <br/>
-                        끊임없이 배우며 성장하는 개발자{" "}
-                        <span className="font-semibold">조성국</span>입니다.
+                        JSP와 React 기반의 웹 서비스를 직접 설계하고 구현해온 개발자{" "}
+                        <span className="text-indigo-400 font-semibold">조성국</span>입니다.
                         <br/> <br/>
-                        저는 새로운 기술을 단순히 배우는 데 그치지 않고,{" "}
-                        <span className="text-indigo-400 font-semibold">실제 서비스에 적용하며 그 가치를 검증하는 과정</span>
-                        을 중요하게 생각합니다.
+                        클라이언트 영역에서는{" "}
+                        <span className="text-indigo-400 font-semibold">JSP, React, TypeScript, Tailwind CSS</span>
+                        를 활용해 사용자 흐름이 자연스러운 인터페이스를 만들었습니다.
                         <br/><br/>
-                        JSP 기반의 서버 사이드 렌더링(SSR) 환경에서 안정적인 서비스 구조를 구현하고, React와 TypeScript를 활용한 클라이언트 사이드 렌더링(CSR) 개발을 통해{" "}
-                        사용자 경험 중심의 UI를 구축하고자 합니다.
+                        상태 관리와 비동기 통신을 직접 설계하며 성능과 유지보수성을 고려한 구조 설계 경험을 통해 화면과
+                        서버 양쪽의 동작을 이해하는 풀스택 역량을 쌓았습니다.
                     </span>
 
-                    화면과 서버를 모두 이해하는{" "}
-                    풀스택 관점을 바탕으로 Spring Framework 기반의{" "}
-                    백엔드 아키텍처 설계, 데이터 연동, 보안 검토 등
-                    실제 서비스 환경에서 요구되는 안정성과 확장성 중심의 개발을 수행했습니다.
+                    새로운 기술을 익힐 때마다 단순히 배우는 데서 그치지 않고 실제 서비스에 적용하며 완성도를 높이고 있습니다.
 
                     <span>
                         저는 <span className="text-indigo-400 font-semibold">문제를 깊이 이해하고 구조적으로 해결하는 과정</span>을 성장의 기회로 생각합니다.
                         <br/> <br/>
-                        새로운 기술과 도전 속에서도 학습을 즐기며, {" "}
+                        새로운 기술과 도전 속에서도 학습을 즐기며 {" "}
                         <span className="text-indigo-400 font-semibold">
                           더 나은 사용자 경험과 품질을 만들어가는 개발자
                         </span>
